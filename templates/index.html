@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Retinal Disease Detection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">  
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+  <!-- Background layers -->
+  <div class="oil"></div>
+  <!-- Main UI -->
+  <div class="wrap">
+
+    <div class="title">RETINAL DISEASE DETECTION</div>
+
+    <form action="/predict" method="post" enctype="multipart/form-data">
+
+      <!-- ONLY TWO BUTTONS -->
+      <div class="controls">
+        <label for="image" class="btn btn-upload">UPLOAD IMAGE</label>
+        <input type="file" id="image" name="image" accept="image/*" required>
+
+        <button type="submit" class="btn btn-predict">PREDICT</button>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview">
+        <div class="frame">
+
+          <img id="previewImg"
+               src="{% if image_path %}/{{ image_path }}{% else %}#{% endif %}"
+               class="{% if image_path %}show{% endif %}"
+               alt="Preview">
+
+          <div id="hint" class="hint {% if image_path %}hide{% endif %}">
+            UPLOADED IMAGE WILL APPEAR HERE
+          </div>
+
+        </div>
+      </div>
+
+      <!-- OUTPUT -->
+      {% if prediction %}
+        <div class="output">
+          PREDICTION : {{ prediction }}
+        </div>
+      {% endif %}
+
+    </form>
+
+  </div>
+
+  <!-- Preview JS -->
+  <script>
+    const input = document.getElementById("image");
+    const img = document.getElementById("previewImg");
+    const hint = document.getElementById("hint");
+
+    input.addEventListener("change", () => {
+      const file = input.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = e => {
+        img.src = e.target.result;
+        img.classList.add("show");
+        hint.classList.add("hide");
+      };
+      reader.readAsDataURL(file);
+    });
+  </script>
+
+</body>
+</html>

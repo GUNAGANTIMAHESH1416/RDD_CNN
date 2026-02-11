@@ -1,0 +1,31 @@
+@"
+# Python
+__pycache__/
+*.pyc
+*.log
+
+# Virtual env
+venv/
+.venv/
+.env/
+
+# Data / uploads (huge)
+dataset/
+data/
+uploads/
+static/uploads/
+
+# ML models (huge)
+*.h5
+*.pt
+*.pth
+*.onnx
+*.pkl
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+Thumbs.db
+.DS_Store
+"@ | Out-File -Encoding utf8 .gitignore
