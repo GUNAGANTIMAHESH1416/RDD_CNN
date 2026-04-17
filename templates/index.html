@@ -47,10 +47,11 @@
 
       <!-- OUTPUT -->
       {% if prediction %}
-        <div class="output">
-          PREDICTION : {{ prediction }}
-        </div>
-      {% endif %}
+  <div class="output">
+    <div>PREDICTION : {{ prediction }}</div>
+    <div>CONFIDENCE : {{ confidence }}%</div>
+  </div>
+{% endif %}
 
     </form>
 
@@ -75,6 +76,5 @@
       reader.readAsDataURL(file);
     });
   </script>
-
 </body>
 </html>
